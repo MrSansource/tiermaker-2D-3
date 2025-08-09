@@ -314,14 +314,12 @@ function assert(name: string, cond: boolean) {
   if (cond) console.log(`✅ ${name}`); else console.error(`❌ ${name}`);
 }
 function runSelfTests() {
-  const s1 = splitImport("A,B;C	D
-E
-F");
+  const s1 = splitImport(`A,B;C\tD\nE\r\nF`);
   assert("splitImport handles , ; 	 and newlines", s1.join("|") === "A|B|C|D|E|F");
 
-  const pp = parsePairs("Alpha	http://x/a.jpg
+  const pp = parsePairs(`Alpha\thttp://x/a.jpg
 Beta | https://x/b.webp
-Gamma");
+Gamma`);
   assert("parsePairs length", pp.length === 3);
   assert("parsePairs images detected", !!pp[0].image && !!pp[1].image && !pp[2].image);
 
